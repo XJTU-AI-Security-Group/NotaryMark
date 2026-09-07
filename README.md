@@ -1,4 +1,5 @@
-# NotaryMark (Multi-bit Watermark Training and Auditing Pipeline)
+# NotaryMark
+**NotaryMark: Multi-Bit Watermarking for Black-Box Dataset Usage Auditing in Text-to-Image Diffusion Models** has been accepted at **ACM CCS 2026**.
 
 NotaryMark is an independent research codebase for training and evaluating a **multi-bit image watermarking pipeline** in latent diffusion-style models.  
 This repository provides a configurable training script that supports:
