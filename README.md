@@ -19,6 +19,7 @@ This repository provides a configurable training script that supports:
 - BCH codebook design via `generate_bch_codebook.py`
 - Aggregated-result decoding via `decode_aggregated_watermarks.py`
 - Watermark embedding via `embed_watermarks.py`
+- Fidelity evaluation (PSNR / SSIM) via `evaluate_fidelity.py`
 - Detector-based repeated audit via `audit_hypothesis_30_images.py`
 - Watermark prediction / extraction via `predict_watermarks.py`
 - Repeated majority-vote aggregation via `aggregate_majority_vote.py`
@@ -187,6 +188,28 @@ python embed_watermarks.py \
   --watermark 10011110111011000011111100101100 \
   --a 0.5
 ```
+
+---
+
+## Fidelity Evaluation (PSNR / SSIM)
+
+Measure the visual cost of embedding by comparing a watermarked folder against the folder it was produced from:
+
+```bash
+python evaluate_fidelity.py \
+  --original_dir ./data/images \
+  --watermarked_dir ./outputs/watermarked_images \
+  --output_csv ./outputs/fidelity/fidelity_metrics.csv
+```
+
+Images are paired by file stem, so the `--output_dir` of `embed_watermarks.py` can be compared directly with its `--input_dir`. Pairs whose spatial size differs are reported and skipped rather than silently resized.
+
+The output CSV contains `filename, height, width, psnr_db, ssim` per image, and the script prints the mean / std / min / max of both metrics:
+
+- **PSNR**: RGB, `data_range = 1.0`, in dB (`inf` for identical images)
+- **SSIM**: Gaussian window 11 × 11, `sigma = 1.5`, computed per RGB channel and averaged
+
+Both metrics are implemented in `torch` with `float64` accumulation, so no additional dependency is needed. Run `python evaluate_fidelity.py --self_test` to check the implementations against their closed-form values without any data.
 
 ---
 
