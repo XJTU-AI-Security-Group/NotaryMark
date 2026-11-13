@@ -11,6 +11,25 @@ This repository provides a configurable training script that supports:
 
 ---
 
+## Table of Contents
+
+- [Features](#features)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Dataset Formats](#dataset-formats)
+- [Main Training](#main-training)
+- [Detector Training](#detector-training)
+- [Watermark Embedding](#watermark-embedding)
+- [Fidelity Evaluation (PSNR / SSIM)](#fidelity-evaluation-psnr--ssim)
+- [Watermark Prediction](#watermark-prediction)
+- [Aggregation](#aggregation)
+- [BCH Codebook Generation](#bch-codebook-generation)
+- [Decode Aggregated Results with Codebook](#decode-aggregated-results-with-codebook)
+- [Detector-Based Audit](#detector-based-audit)
+- [Reproducibility Notes](#reproducibility-notes)
+- [Suggested Repository Layout](#suggested-repository-layout)
+
+---
 
 ## Features
 
@@ -55,7 +74,6 @@ pip install -r requirements.txt
 python -c "import torch; print(torch.__version__, torch.cuda.is_available())"
 ```
 
----
 ---
 
 ## Dataset Formats
