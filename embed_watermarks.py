@@ -212,10 +212,11 @@ def main(args) -> None:
                 # 4) Decode back to pixel space
                 watermarked_image_tensor = vae.decode(watermarked_latent)  # [1,3,H,W] in [0,1]
 
-            # Save result.
-            # NOTE: `normalize=True` rescales the tensor for visualization. If your tensor
-            # is already in [0,1], you may set normalize=False to preserve exact values.
-            save_image(watermarked_image_tensor, output_path, normalize=True)
+            # Save the decoded tensor as-is. `VAEWrapper.decode` already returns values
+            # in [0, 1], so `normalize=True` would min-max rescale every image and
+            # silently alter the embedding, which also corrupts any PSNR / SSIM measured
+            # against the original.
+            save_image(watermarked_image_tensor, output_path, normalize=False)
 
         except Exception as e:
             # Continue processing even if one image fails.
